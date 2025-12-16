@@ -1,3 +1,4 @@
+# start.py
 # Copyright (c) 2025 devgagan : https://github.com/devgaganin.  
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
@@ -8,22 +9,55 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.types import BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from config import LOG_GROUP, OWNER_ID, FORCE_SUB
 
+# ----------------- Start command handler -----------------
+@ app.on_message(filters.private & filters.command("start"))
+async def start(client, message):
+    # Inline buttons: 2 rows
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Help ❓", callback_data="help"),
+                InlineKeyboardButton("/RioShin", url="https://t.me/RioShin")
+            ],
+            [
+                InlineKeyboardButton("Botskingdoms", url="https://t.me/Botskingdoms")
+            ]
+        ]
+    )
+
+    # Start image and caption
+    START_IMAGE = "https://i.rj1.dev/PkcNo.png"
+    caption_text = "👋 Welcome!\n\nv  vv  Botskingdoms"
+
+    await client.send_photo(
+        chat_id=message.chat.id,
+        photo=START_IMAGE,
+        caption=caption_text,
+        reply_markup=markup
+    )
+
+# ----------------- Subscription check -----------------
 async def subscribe(app, message):
     if FORCE_SUB:
         try:
-          user = await app.get_chat_member(FORCE_SUB, message.from_user.id)
-          if str(user.status) == "ChatMemberStatus.BANNED":
-              await message.reply_text("You are Banned. Contact -- Team SPY")
-              return 1
+            user = await app.get_chat_member(FORCE_SUB, message.from_user.id)
+            if str(user.status) == "ChatMemberStatus.BANNED":
+                await message.reply_text("You are Banned. Contact -- Team SPY")
+                return 1
         except UserNotParticipant:
             link = await app.export_chat_invite_link(FORCE_SUB)
             caption = f"Join our channel to use the bot"
-            await message.reply_photo(photo="https://graph.org/file/d44f024a08ded19452152.jpg",caption=caption, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{link}")]]))
+            await message.reply_photo(
+                photo="https://graph.org/file/d44f024a08ded19452152.jpg",
+                caption=caption,
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{link}")]])
+            )
             return 1
         except Exception as ggn:
             await message.reply_text(f"Something Went Wrong. Contact admins... with following message {ggn}")
             return 1 
-     
+
+# ----------------- Set bot commands -----------------
 @app.on_message(filters.command("set"))
 async def set(_, message):
     if message.from_user.id not in OWNER_ID:
@@ -52,10 +86,8 @@ async def set(_, message):
     ])
  
     await message.reply("✅ Commands configured successfully!")
- 
- 
- 
- 
+
+# ----------------- Help pages -----------------
 help_pages = [
     (
         "📝 **Bot Commands Overview (1/2)**:\n\n"
@@ -106,35 +138,26 @@ help_pages = [
         "**__Powered by Team SPY__**"
     )
 ]
- 
- 
+
+# ----------------- Help navigation -----------------
 async def send_or_edit_help_page(_, message, page_number):
     if page_number < 0 or page_number >= len(help_pages):
         return
- 
      
     prev_button = InlineKeyboardButton("◀️ Previous", callback_data=f"help_prev_{page_number}")
     next_button = InlineKeyboardButton("Next ▶️", callback_data=f"help_next_{page_number}")
  
-     
     buttons = []
     if page_number > 0:
         buttons.append(prev_button)
     if page_number < len(help_pages) - 1:
         buttons.append(next_button)
  
-     
     keyboard = InlineKeyboardMarkup([buttons])
  
-     
     await message.delete()
  
-     
-    await message.reply(
-        help_pages[page_number],
-        reply_markup=keyboard
-    )
- 
+    await message.reply(help_pages[page_number], reply_markup=keyboard)
  
 @app.on_message(filters.command("help"))
 async def help(client, message):
@@ -143,7 +166,6 @@ async def help(client, message):
         return
      
     await send_or_edit_help_page(client, message, 0)
- 
  
 @app.on_callback_query(filters.regex(r"help_(prev|next)_(\d+)"))
 async def on_help_navigation(client, callback_query):
@@ -155,10 +177,9 @@ async def on_help_navigation(client, callback_query):
         page_number += 1
 
     await send_or_edit_help_page(client, callback_query.message, page_number)
-     
     await callback_query.answer()
 
- 
+# ----------------- Terms and Plan commands -----------------
 @app.on_message(filters.command("terms") & filters.private)
 async def terms(client, message):
     terms_text = (
@@ -175,8 +196,7 @@ async def terms(client, message):
         ]
     )
     await message.reply_text(terms_text, reply_markup=buttons)
- 
- 
+
 @app.on_message(filters.command("plan") & filters.private)
 async def plan(client, message):
     plan_text = (
@@ -194,8 +214,7 @@ async def plan(client, message):
         ]
     )
     await message.reply_text(plan_text, reply_markup=buttons)
- 
- 
+
 @app.on_callback_query(filters.regex("see_plan"))
 async def see_plan(client, callback_query):
     plan_text = (
@@ -213,8 +232,7 @@ async def see_plan(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(plan_text, reply_markup=buttons)
- 
- 
+
 @app.on_callback_query(filters.regex("see_terms"))
 async def see_terms(client, callback_query):
     terms_text = (
@@ -231,5 +249,3 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
- 
- 
