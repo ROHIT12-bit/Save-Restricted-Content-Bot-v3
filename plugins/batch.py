@@ -85,7 +85,6 @@ async def upd_dlg(c):
         print(f'Failed to update dialogs: {e}')
         return False
 
-# fixed the old group of 2021-2022 extraction 🌝 (buy krne ka fayda nhi ab old group) ✅ 
 async def get_msg(c, u, i, d, lt):
     try:
         if lt == 'public':
@@ -395,19 +394,19 @@ async def process_cmd(c, m):
     cmd = m.command[0]
     
     if FREEMIUM_LIMIT == 0 and not await is_premium_user(uid):
-        await m.reply_text("This bot does not provide free servies, get subscription from OWNER")
+        await m.reply_text("ᴛʜɪs ʙᴏᴛ ᴅᴏᴇs ɴᴏᴛ ᴘʀᴏᴠɪᴅᴇ ғʀᴇᴇ sᴇʀᴠɪᴇs, ɢᴇᴛ sᴜʙsᴄʀɪᴘᴛɪᴏɴ ғʀᴏᴍ ᴏᴡɴᴇʀ")
         return
     
     if await sub(c, m) == 1: return
-    pro = await m.reply_text('Doing some checks hold on...')
+    pro = await m.reply_text('ᴅᴏɪɴɢ sᴏᴍᴇ ᴄʜᴇᴄᴋs ʜᴏʟᴅ oɴ...')
     
     if is_user_active(uid):
-        await pro.edit('You have an active task. Use /stop to cancel it.')
+        await pro.edit('ʏᴏᴜ ʜᴀᴠᴇ ᴀɴ ᴀᴄᴛɪᴠᴇ ᴛᴀsᴋ. ᴜsᴇ /Stop ᴛᴏ ᴄᴀɴᴄᴇʟ ɪᴛ.')
         return
     
     ubot = await get_ubot(uid)
     if not ubot:
-        await pro.edit('Add your bot with /setbot first')
+        await pro.edit('ᴀᴅᴅ ʏᴏᴜʀ ʙᴏᴛ ᴡɪᴛʜ /setbot firsᴛ')
         return
     
     Z[uid] = {'step': 'start' if cmd == 'batch' else 'start_single'}
@@ -418,11 +417,11 @@ async def cancel_cmd(c, m):
     uid = m.from_user.id
     if is_user_active(uid):
         if await request_batch_cancel(uid):
-            await m.reply_text('Cancellation requested. The current batch will stop after the current download completes.')
+            await m.reply_text('ᴄᴀɴᴄᴇʟʟᴀᴛɪᴏɴ ʀᴇǫᴜᴇsᴛᴇᴅ. ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ʙᴀᴛᴄʜ ᴡɪʟʟ sᴛᴏᴘ ᴀғᴛᴇʀ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴅᴏᴡɴʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇs.')
         else:
-            await m.reply_text('Failed to request cancellation. Please try again.')
+            await m.reply_text('ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇǫᴜᴇsᴛ ᴄᴀɴᴄᴇʟʟᴀᴛɪᴏɴ. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ.')
     else:
-        await m.reply_text('No active batch process found.')
+        await m.reply_text('ɴᴏ ᴀᴄᴛɪᴠᴇ ʙᴀᴛᴄʜ ᴘʀᴏᴄᴇss ғᴏᴜɴᴅ.')
 
 @X.on_message(filters.text & filters.private & ~login_in_progress & ~filters.command([
     'start', 'batch', 'cancel', 'login', 'logout', 'stop', 'set', 
@@ -433,7 +432,7 @@ async def text_handler(c, m):
     s = Z[uid].get('step')
     x = await get_ubot(uid)
     if not x:
-        await message.reply("Add your bot /setbot `token`")
+        await message.reply("ᴀᴅᴅ ʏᴏᴜʀ ʙᴏᴛ /setbot `token`")
         return
 
     if s == 'start':
@@ -444,7 +443,7 @@ async def text_handler(c, m):
             Z.pop(uid, None)
             return
         Z[uid].update({'step': 'count', 'cid': i, 'sid': d, 'lt': lt})
-        await m.reply_text('How many messages?')
+        await m.reply_text('ʜᴏᴡ ᴍᴀɴʏ ᴍᴇssᴀɢᴇs?')
 
     elif s == 'start_single':
         L = m.text
@@ -456,11 +455,11 @@ async def text_handler(c, m):
 
         Z[uid].update({'step': 'process_single', 'cid': i, 'sid': d, 'lt': lt})
         i, s, lt = Z[uid]['cid'], Z[uid]['sid'], Z[uid]['lt']
-        pt = await m.reply_text('Processing...')
+        pt = await m.reply_text('ᴘʀᴏᴄᴇssɪɴɢ...')
         
         ubot = UB.get(uid)
         if not ubot:
-            await pt.edit('Add bot with /setbot first')
+            await pt.edit('ᴀᴅᴅ ʙᴏᴛ ᴡɪᴛʜ /setbot ғɪʀsᴛ')
             Z.pop(uid, None)
             return
         
@@ -471,7 +470,7 @@ async def text_handler(c, m):
             return
             
         if is_user_active(uid):
-            await pt.edit('Active task exists. Use /stop first.')
+            await pt.edit('ᴀᴄᴛɪᴠᴇ ᴛᴀsᴋ ᴇxɪsᴛs. ᴜsᴇ /stop ғɪʀsᴛ.')
             Z.pop(uid, None)
             return
 
@@ -481,7 +480,7 @@ async def text_handler(c, m):
                 res = await process_msg(ubot, uc, msg, str(m.chat.id), lt, uid, i)
                 await pt.edit(f'1/1: {res}')
             else:
-                await pt.edit('Message not found')
+                await pt.edit('ᴍᴇssᴀɢᴇ ɴᴏᴛ ғᴏᴜɴᴅ')
         except Exception as e:
             await pt.edit(f'Error: {str(e)[:50]}')
         finally:
@@ -489,7 +488,7 @@ async def text_handler(c, m):
 
     elif s == 'count':
         if not m.text.isdigit():
-            await m.reply_text('Enter valid number.')
+            await m.reply_text('ᴇɴᴛᴇʀ ᴀ ʀᴇᴀʟ ɴᴜᴍʙᴇʀ.')
             return
         
         count = int(m.text)
@@ -503,17 +502,17 @@ async def text_handler(c, m):
         i, s, n, lt = Z[uid]['cid'], Z[uid]['sid'], Z[uid]['num'], Z[uid]['lt']
         success = 0
 
-        pt = await m.reply_text('Processing batch...')
+        pt = await m.reply_text('ᴘʀᴏᴄᴇssɪɴɢ ʙᴀᴛᴄʜ...')
         uc = await get_uclient(uid)
         ubot = UB.get(uid)
         
         if not uc or not ubot:
-            await pt.edit('Missing client setup')
+            await pt.edit('ʜɪ')
             Z.pop(uid, None)
             return
             
         if is_user_active(uid):
-            await pt.edit('Active task exists')
+            await pt.edit('ᴀᴄᴛɪᴠᴇ ᴛᴀsᴋ ᴇxɪᴛs')
             Z.pop(uid, None)
             return
         
@@ -529,7 +528,7 @@ async def text_handler(c, m):
             for j in range(n):
                 
                 if should_cancel(uid):
-                    await pt.edit(f'Cancelled at {j}/{n}. Success: {success}')
+                    await pt.edit(f'ᴄᴀɴᴄʟᴇᴅ at {j}/{n}. sᴜᴄᴄᴇss: {success}')
                     break
                 
                 await update_batch_progress(uid, j, success)
@@ -551,10 +550,11 @@ async def text_handler(c, m):
                 await asyncio.sleep(10)
             
             if j+1 == n:
-                await m.reply_text(f'Batch Completed ✅ Success: {success}/{n}')
+                await m.reply_text(f'ʙᴀᴛᴄʜ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ✅ sᴜᴄᴄᴇss: {success}/{n}')
         
         finally:
             await remove_active_batch(uid)
             Z.pop(uid, None)
+
 
 
