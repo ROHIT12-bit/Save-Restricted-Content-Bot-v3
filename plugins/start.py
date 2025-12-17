@@ -30,8 +30,8 @@ async def start(client, message):
     caption_text = """**<blockquote>👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇ ʀᴇsᴛʀɪᴄᴛᴇᴛ ʙᴏᴛ</blockquote>
 <blockquote>❤️‍🔥sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs</blockquote>
 <blockquote>❤️‍🔥ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs</blockquote>  
-<blockquote>📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ  
-⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs  </blockquote>
+<blockquote>📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ</blockquote>
+<blockquote>⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs</blockquote>
 
 <blockquote>[⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙᴏᴛsᴋɪɴɢᴅᴏᴍs](https://t.me/BOTSKINGDOMS)</blockquote>**"""
 
@@ -62,36 +62,6 @@ async def subscribe(app, message):
         except Exception as ggn:
             await message.reply_text(f"Something Went Wrong. Contact admins... with following message {ggn}")
             return 1 
-
-# ----------------- Set bot commands -----------------
-@app.on_message(filters.command("set"))
-async def set(_, message):
-    if message.from_user.id not in OWNER_ID:
-        await message.reply("You are not authorized to use this command.")
-        return
-     
-    await app.set_bot_commands([
-        BotCommand("start", "🚀 Start the bot"),
-        BotCommand("batch", "🫠 Extract in bulk"),
-        BotCommand("login", "🔑 Get into the bot"),
-        BotCommand("setbot", "🧸 Add your bot for handling files"),
-        BotCommand("logout", "🚪 Get out of the bot"),
-        BotCommand("adl", "👻 Download audio from 30+ sites"),
-        BotCommand("dl", "💀 Download videos from 30+ sites"),
-        BotCommand("status", "⟳ Refresh Payment status"),
-        BotCommand("transfer", "💘 Gift premium to others"),
-        BotCommand("add", "➕ Add user to premium"),
-        BotCommand("rem", "➖ Remove from premium"),
-        BotCommand("rembot", "🤨 Remove your custom bot"),
-        BotCommand("settings", "⚙️ Personalize things"),
-        BotCommand("plan", "🗓️ Check our premium plans"),
-        BotCommand("terms", "🥺 Terms and conditions"),
-        BotCommand("help", "❓ If you're a noob, still!"),
-        BotCommand("cancel", "🚫 Cancel login/batch/settings process"),
-        BotCommand("stop", "🚫 Cancel batch process")
-    ])
- 
-    await message.reply("✅ Commands configured successfully!")
 
 # ----------------- Help pages -----------------
 help_pages = [
@@ -256,6 +226,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
