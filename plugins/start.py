@@ -16,18 +16,26 @@ async def start(client, message):
     markup = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("Help ❓", callback_data="help"),
-                InlineKeyboardButton("/RioShin", url="https://t.me/RioShin")
+                InlineKeyboardButton("ᴜᴘᴅᴀᴛᴇs", url="https://t.me/BOTSKINGDOMS"),
+                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/BOTSKINGDOMSGROUP")
             ],
             [
-                InlineKeyboardButton("Botskingdoms", url="https://t.me/Botskingdoms")
+                InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ", url="https://t.me/RioShin")
             ]
         ]
     )
 
     # Start image and caption
-    START_IMAGE = "https://i.rj1.dev/PkcNo.png"
-    caption_text = "👋 Welcome!\n\nv  vv  Botskingdoms"
+    START_IMAGE = "https://i.rj1.dev/vgrAW.png"
+    caption_text = """👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇʀᴇsᴛʀɪᴄᴛᴇᴛ ʙᴏᴛ
+
+❤️‍🔥sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs  
+❤️‍🔥ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs  
+
+📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ  
+⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs  
+
+[⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙᴏᴛsᴋɪɴɢᴅᴏᴍs](https://t.me/BOTSKINGDOMS)"""
 
     await client.send_photo(
         chat_id=message.chat.id,
@@ -249,3 +257,4 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
