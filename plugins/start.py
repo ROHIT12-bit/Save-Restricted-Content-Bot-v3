@@ -27,13 +27,12 @@ async def start(client, message):
 
     # Start image and caption
     START_IMAGE = "https://i.rj1.dev/vgrAW.png"
-    caption_text = """**<blockquote>👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇ ʀᴇsᴛʀɪᴄᴛᴇᴛ ʙᴏᴛ</blockquote>
-<blockquote>❤️‍🔥sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs</blockquote>
-<blockquote>❤️‍🔥ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs</blockquote>  
-<blockquote>📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ</blockquote>
-<blockquote>⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs</blockquote>
-
-<blockquote>[⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙᴏᴛsᴋɪɴɢᴅᴏᴍs](https://t.me/BOTSKINGDOMS)</blockquote>**"""
+    caption_text = """<blockquote>**👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇ ʀᴇsᴛʀɪᴄᴛᴇᴅ ʙᴏᴛ**</blockquote>
+<blockquote>**❤️‍🔥 sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs**</blockquote>
+<blockquote>**❤️‍🔥 ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs**</blockquote>
+<blockquote>**📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ**</blockquote>
+<blockquote>**⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs**</blockquote>
+<blockquote>**⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ** <a href='https://t.me/BOTSKINGDOMS'>BotsKingdoms</a></blockquote>"""
 
     await client.send_photo(
         chat_id=message.chat.id,
@@ -52,9 +51,12 @@ async def subscribe(app, message):
                 return 1
         except UserNotParticipant:
             link = await app.export_chat_invite_link(FORCE_SUB)
-            caption = f"Join our channel to use the bot"
+            caption = f"""⚠️ Hᴇʏ, ᴅᴜᴅᴇ
+Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴊᴏɪɴᴇᴅ 1/4 ᴄʜᴀɴɴᴇʟs ʏᴇᴛ. Pʟᴇᴀsᴇ ᴊᴏɪɴ ᴛʜᴇ ᴄʜᴀɴɴᴇʟs ᴘʀᴏᴠɪᴅᴇᴅ ʙᴇʟᴏᴡ, ᴛʜᴇɴ ᴛʀʏ ᴀɢᴀɪɴ.. !
+
+❗Fᴀᴄɪɴɢ ᴘʀᴏʙʟᴇᴍs, ᴜsᴇ: /help """
             await message.reply_photo(
-                photo="https://graph.org/file/d44f024a08ded19452152.jpg",
+                photo="https://i.rj1.dev/vgrAW.png",
                 caption=caption,
                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{link}")]])
             )
@@ -226,6 +228,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
