@@ -19,10 +19,10 @@ from plugins.start import subscribe
 async def add_premium_handler(event):
     if not await is_private_chat(event):
         await event.respond(
-            'This command can only be used in private chats for security reasons.'
+            '<blockquote>This command can only be used in private chats for security reasons.</blockquote>'
             )
         return
-    """Handle /add_premium command to add premium users (owner only)"""
+    """<blockquote>Handle /add_premium command to add premium users (owner only)</blockquote>"""
     user_id = event.sender_id
     if user_id not in OWNER_ID:
         await event.respond('This command is restricted to the bot owner.')
@@ -31,8 +31,8 @@ async def add_premium_handler(event):
     parts = text.split(' ')
     if len(parts) != 4:
         await event.respond(
-            """Invalid format. Use: /add_premium user_id duration_value duration_unit
-Example: /add 123456 1 week"""
+            """<blockquote>Invalid ғᴏʀᴍᴀᴛ. ᴜsᴇ: /add_premium ᴜsᴇʀ_ɪᴅ ᴅᴜʀᴀᴛɪᴏɴ_ᴠᴀʟᴜᴇ ᴅᴜʀᴀᴛɪᴏɴ_ᴜɴɪᴛ
+ᴇxᴀᴍᴘʟᴇ: /add_premium 123456 1 week</blockquote>"""
             )
         return
     try:
@@ -64,7 +64,7 @@ Subscription valid until: {formatted_expiry} (IST)"""
             await event.respond(f'❌ Failed to add premium user: {result}')
     except ValueError:
         await event.respond(
-            'Invalid user ID or duration value. Both must be integers.')
+            '<blockquote>Invalid user ID or duration value. Both must be integers.</blockquote>')
     except Exception as e:
         await event.respond(f'Error: {str(e)}')
         
@@ -104,3 +104,4 @@ async def start_handler(client, message):
         reply_markup=kb
 
     )
+
