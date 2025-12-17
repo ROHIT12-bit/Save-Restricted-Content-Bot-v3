@@ -96,62 +96,63 @@ async def set(_, message):
 # ----------------- Help pages -----------------
 help_pages = [
     (
-        "📝 **Bot Commands Overview (1/2)**:\n\n"
-        "1. **/add userID**\n"
-        "> Add user to premium (Owner only)\n\n"
-        "2. **/rem userID**\n"
-        "> Remove user from premium (Owner only)\n\n"
-        "3. **/transfer userID**\n"
-        "> Transfer premium to your beloved major purpose for resellers (Premium members only)\n\n"
-        "4. **/get**\n"
-        "> Get all user IDs (Owner only)\n\n"
-        "5. **/lock**\n"
-        "> Lock channel from extraction (Owner only)\n\n"
-        "6. **/dl link**\n"
-        "> Download videos (Not available in v3 if you are using)\n\n"
-        "7. **/adl link**\n"
-        "> Download audio (Not available in v3 if you are using)\n\n"
-        "8. **/login**\n"
-        "> Log into the bot for private channel access\n\n"
-        "9. **/batch**\n"
-        "> Bulk extraction for posts (After login)\n\n"
+        """<blockquote>🤖 Bot Commands Guide — PART 1</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>👑 OWNER COMMANDS</blockquote>
+<blockquote>/add &lt;user_id&gt; – Grant premium access</blockquote>
+<blockquote>/rem &lt;user_id&gt; – Revoke premium access</blockquote>
+<blockquote>/get – View all registered user IDs</blockquote>
+<blockquote>/lock – Lock a channel from extraction</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>💎 PREMIUM / USER</blockquote>
+<blockquote>/transfer &lt;user_id&gt; – Transfer premium (Resellers)</blockquote>
+<blockquote>/login – Login for private channel access</blockquote>
+<blockquote>/logout – Logout from bot</blockquote>
+<blockquote>/myplan – View your active plan</blockquote>
+<blockquote>/plan – Check premium plans</blockquote>
+<blockquote>/terms – Terms &amp; conditions</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>📥 DOWNLOAD & EXTRACTION</blockquote>
+<blockquote>/dl &lt;link&gt; – Download video (Not in v3)</blockquote>
+<blockquote>/adl &lt;link&gt; – Download audio (Not in v3)</blockquote>
+<blockquote>/batch – Bulk post extraction (Login required)</blockquote>
+<blockquote>/cancel – Cancel ongoing process</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>⚡ by Botskingdoms</blockquote>
+"""
     ),
     (
-        "📝 **Bot Commands Overview (2/2)**:\n\n"
-        "10. **/logout**\n"
-        "> Logout from the bot\n\n"
-        "11. **/stats**\n"
-        "> Get bot stats\n\n"
-        "12. **/plan**\n"
-        "> Check premium plans\n\n"
-        "13. **/speedtest**\n"
-        "> Test the server speed (not available in v3)\n\n"
-        "14. **/terms**\n"
-        "> Terms and conditions\n\n"
-        "15. **/cancel**\n"
-        "> Cancel ongoing batch process\n\n"
-        "16. **/myplan**\n"
-        "> Get details about your plans\n\n"
-        "17. **/session**\n"
-        "> Generate Pyrogram V2 session\n\n"
-        "18. **/settings**\n"
-        "> 1. SETCHATID : To directly upload in channel or group or user's dm use it with -100[chatID]\n"
-        "> 2. SETRENAME : To add custom rename tag or username of your channels\n"
-        "> 3. CAPTION : To add custom caption\n"
-        "> 4. REPLACEWORDS : Can be used for words in deleted set via REMOVE WORDS\n"
-        "> 5. RESET : To set the things back to default\n\n"
-        "> You can set CUSTOM THUMBNAIL, PDF WATERMARK, VIDEO WATERMARK, SESSION-based login, etc. from settings\n\n"
-        "**__Powered by Team SPY__**"
+        """<blockquote>🤖 Bot Commands Guide — PART 2</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>⚙️ TOOLS & INFO</blockquote>
+<blockquote>/stats – Bot statistics</blockquote>
+<blockquote>/speedtest – Server speed test (Not in v3)</blockquote>
+<blockquote>/session – Generate Pyrogram v2 session</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>⚙️ SETTINGS</blockquote>
+<blockquote>SETCHATID – Upload directly to channel / group / DM (Use -100&lt;chat_id&gt;)</blockquote>
+<blockquote>SETRENAME – Add custom rename tag or channel username</blockquote>
+<blockquote>CAPTION – Set custom caption</blockquote>
+<blockquote>REPLACEWORDS – Replace removed words</blockquote>
+<blockquote>RESET – Restore default settings</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>✨ Extra Features</blockquote>
+<blockquote>Custom Thumbnail</blockquote>
+<blockquote>PDF Watermark</blockquote>
+<blockquote>Video Watermark</blockquote>
+<blockquote>Session-based Login</blockquote>
+<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
+<blockquote>⚡ Powered by @BotsKingdoms</blockquote>
+"""
     )
 ]
-
 # ----------------- Help navigation -----------------
 async def send_or_edit_help_page(_, message, page_number):
     if page_number < 0 or page_number >= len(help_pages):
         return
      
-    prev_button = InlineKeyboardButton("◀️ Previous", callback_data=f"help_prev_{page_number}")
-    next_button = InlineKeyboardButton("Next ▶️", callback_data=f"help_next_{page_number}")
+    prev_button = InlineKeyboardButton("ᴘʀᴇᴠɪᴏᴜs", callback_data=f"help_prev_{page_number}")
+    next_button = InlineKeyboardButton("ɴᴇxᴛ", callback_data=f"help_next_{page_number}")
  
     buttons = []
     if page_number > 0:
@@ -255,6 +256,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
