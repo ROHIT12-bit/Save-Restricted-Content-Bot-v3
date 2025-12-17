@@ -27,15 +27,15 @@ async def start(client, message):
 
     # Start image and caption
     START_IMAGE = "https://i.rj1.dev/vgrAW.png"
-    caption_text = """👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇʀᴇsᴛʀɪᴄᴛᴇᴛ ʙᴏᴛ
+    caption_text = """**<blockquote>👋 ʜɪ! ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴀᴠᴇ ʀᴇsᴛʀɪᴄᴛᴇᴛ ʙᴏᴛ</blockquote>
 
-❤️‍🔥sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs  
-❤️‍🔥ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs  
+<blockquote>❤️‍🔥sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs</blockquote>
+<blockquote>❤️‍🔥ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs</blockquote>  
 
-📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ  
-⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs  
+<blockquote>📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ  
+⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs  </blockquote>
 
-[⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙᴏᴛsᴋɪɴɢᴅᴏᴍs](https://t.me/BOTSKINGDOMS)"""
+<blockquote>[⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙᴏᴛsᴋɪɴɢᴅᴏᴍs](https://t.me/BOTSKINGDOMS)</blockquote>**"""
 
     await client.send_photo(
         chat_id=message.chat.id,
@@ -257,4 +257,5 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
