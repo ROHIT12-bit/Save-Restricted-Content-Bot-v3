@@ -1,4 +1,4 @@
-# Copyright (c) 2025 devgagan : https://github.com/devgaganin.  
+# Copyright (c) 2025 RioShin : https://github.com/Rioshin2025.  
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
 
@@ -9,7 +9,7 @@ from datetime import timedelta as T
 from utils.func import add_premium_user as apu
 from config import P0
 
-@app.on_message(f.command("pay") & f.private)
+@app.on_message(f.command("Pay") & f.private)
 async def p(c, m):
     kb = M([
         [
@@ -80,5 +80,6 @@ async def sp(c, m):
             await c.send_message(o,
                 f"⚠️ Issue!\nUser {u}\nPlan {pi['l']}\nTxn {p.telegram_payment_charge_id}\nErr {r}"
             )
+
 
 
