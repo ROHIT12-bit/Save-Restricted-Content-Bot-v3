@@ -507,7 +507,7 @@ async def text_handler(c, m):
         ubot = UB.get(uid)
         
         if not uc or not ubot:
-            await pt.edit('ʜɪ')
+            await pt.edit('ᴍɪssɪɴɢ ᴄʟɪᴇɴᴛ sᴇᴛᴜᴘ')
             Z.pop(uid, None)
             return
             
@@ -555,6 +555,7 @@ async def text_handler(c, m):
         finally:
             await remove_active_batch(uid)
             Z.pop(uid, None)
+
 
 
 
