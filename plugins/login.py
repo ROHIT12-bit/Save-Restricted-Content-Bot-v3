@@ -1,4 +1,4 @@
-# Copyright (c) 2025 devgagan : https://github.com/devgaganin.  
+# Copyright (c) 2025 RioShin : https://github.com/Rioshin2025.  
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
 
@@ -29,8 +29,8 @@ async def login_command(client, message):
     login_cache.pop(user_id, None)
     await message.delete()
     status_msg = await message.reply(
-        """Please send your phone number with country code
-Example: `+12345678900`"""
+        """ᴘʟᴇᴀsᴇ sᴇɴᴅ ʏᴏᴜʀ ᴘʜᴏɴᴇ ɴᴜᴍʙᴇʀ ᴡɪᴛʜ ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ
+ᴇxᴀᴍᴘʟᴇ: `+12345678900`"""
         )
     login_cache[user_id] = {'status_msg': status_msg}
     
@@ -51,18 +51,18 @@ async def set_bot_token(C, m):
             except Exception:
                 pass
             
-            print(f"Stopped and removed old bot for user {user_id}")
+            print(f"sᴛᴏᴘᴘᴇᴅ ᴀɴᴅ ʀᴇᴍᴏᴠᴇᴅ ᴏʟᴅ ʙᴏᴛ ғᴏʀ ᴜsᴇʀ {user_id}")
         except Exception as e:
-            print(f"Error stopping old bot for user {user_id}: {e}")
+            print(f"ᴇʀʀᴏʀ sᴛᴏᴘᴘɪɴɢ ᴏʟᴅ ʙᴏᴛ ғᴏʀ ᴜsᴇʀ {user_id}: {e}")
             del UB[user_id]  # Remove from dictionary
 
     if len(args) < 2:
-        await m.reply_text("⚠️ Please provide a bot token. Usage: `/setbto token`", quote=True)
+        await m.reply_text("⚠️ ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ʙᴏᴛ ᴛᴏᴋᴇɴ. ᴜsᴀɢᴇ: `/setbot token`", quote=True)
         return
 
     bot_token = args[1].strip()
     await save_user_bot(user_id, bot_token)
-    await m.reply_text("✅ Bot token saved successfully.", quote=True)
+    await m.reply_text("✅ ʙᴏᴛ ᴛᴏᴋᴇɴ sᴀᴠᴇᴅ sᴜᴄᴄᴇssғᴜʟ.", quote=True)
     
     
 @bot.on_message(filters.command("rembot"))
@@ -90,7 +90,7 @@ async def rem_bot_token(C, m):
             except Exception:
                 pass
     await remove_user_bot(user_id)
-    await m.reply_text("✅ Bot token removed successfully.", quote=True)
+    await m.reply_text("✅ ʙᴏᴛ ᴛᴏᴋᴇɴ ʀᴇᴍᴏᴠᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ.", quote=True)
 
     
 @bot.on_message(login_in_progress & filters.text & filters.private & ~filters.command([
@@ -112,10 +112,10 @@ async def handle_login_steps(client, message):
         if step == STEP_PHONE:
             if not text.startswith('+'):
                 await edit_message_safely(status_msg,
-                    '❌ Please provide a valid phone number starting with +')
+                    '❌ ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴠᴀʟɪᴅ ᴘʜᴏɴᴇ ɴᴜᴍʙᴇʀ sᴛᴀʀᴛɪɴɢ ᴡɪᴛᴛ +')
                 return
             await edit_message_safely(status_msg,
-                '🔄 Processing phone number...')
+                '🔄 ᴘʀᴏᴄᴇssɪɴɢ ᴘʜᴏɴᴇ ɴᴜᴍʙᴇʀ...')
             temp_client = Client(f'temp_{user_id}', api_id=API_ID, api_hash
                 =API_HASH, device_model=model, in_memory=True)
             try:
@@ -127,14 +127,14 @@ async def handle_login_steps(client, message):
                 login_cache[user_id]['temp_client'] = temp_client
                 set_user_step(user_id, STEP_CODE)
                 await edit_message_safely(status_msg,
-                    """✅ Verification code sent to your Telegram account.
+                    """✅ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ᴄᴏᴅᴇ sᴇɴᴛ ᴛᴏ ʏᴏᴜʀ ᴛᴇʟᴇɢʀᴀᴍ ᴀᴄᴄᴏᴜɴᴛ.
                     
-Please enter the code you received like 1 2 3 4 5 (i.e seperated by space):"""
+ᴘʟᴇᴀsᴇ ᴇɴᴛᴇʀ ᴛʜᴇ ᴄᴏᴅᴇ ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ ʟɪᴋᴇ 1 2 3 4 5 (i.e sᴇᴘᴇʀᴀᴛᴇᴅ ʙʏ sᴘᴀᴄᴇ):"""
                     )
             except BadRequest as e:
                 await edit_message_safely(status_msg,
                     f"""❌ Error: {str(e)}
-Please try again with /login.""")
+ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ ᴡɪᴛʜ /login.""")
                 await temp_client.disconnect()
                 set_user_step(user_id, None)
         elif step == STEP_CODE:
@@ -153,18 +153,18 @@ Please try again with /login.""")
                 login_cache.pop(user_id, None)
                 login_cache[user_id] = {'status_msg': temp_status_msg}
                 await edit_message_safely(status_msg,
-                    """✅ Logged in successfully!!"""
+                    """✅ ʟᴏɢɢᴇᴅ ɪɴ sᴜᴄᴄᴇssғᴜʟʟʏ!!"""
                     )
                 set_user_step(user_id, None)
             except SessionPasswordNeeded:
                 set_user_step(user_id, STEP_PASSWORD)
                 await edit_message_safely(status_msg,
-                    """🔒 Two-step verification is enabled.
-Please enter your password:"""
+                    """🔒 ᴛᴡᴏ sᴛᴇᴘ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ɪs ᴇɴᴀʙʟᴇᴅ.
+ᴘʟᴇᴀsᴇ ᴇɴᴛᴇʀ ʏᴏᴜʀ ᴘᴀssᴡᴏʀᴅ:"""
                     )
             except (PhoneCodeInvalid, PhoneCodeExpired) as e:
                 await edit_message_safely(status_msg,
-                    f'❌ {str(e)}. Please try again with /login.')
+                    f'❌ {str(e)}. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ ᴡɪᴛʜ /login.')
                 await temp_client.disconnect()
                 login_cache.pop(user_id, None)
                 set_user_step(user_id, None)
@@ -182,7 +182,7 @@ Please enter your password:"""
                 login_cache.pop(user_id, None)
                 login_cache[user_id] = {'status_msg': temp_status_msg}
                 await edit_message_safely(status_msg,
-                    """✅ Logged in successfully!!"""
+                    """✅ ʟᴏɢɢᴇᴅ ɪɴ sᴜᴄᴄᴇssғᴜʟʟʏ!!"""
                     )
                 set_user_step(user_id, None)
             except BadRequest as e:
@@ -199,7 +199,7 @@ Please try again with /login.""")
         login_cache.pop(user_id, None)
         set_user_step(user_id, None)
 async def edit_message_safely(message, text):
-    """Helper function to edit message and handle errors"""
+    """ʜᴇʟᴘᴇʀ ғᴜɴᴄᴛɪᴏɴ ᴛᴏ ᴇᴅɪᴛ ᴍᴇssᴀɢᴇ ᴀɴᴅ ʜᴀɴᴅʟᴇ ᴇʀʀᴏʀs"""
     try:
         await message.edit(text)
     except MessageNotModified:
@@ -219,7 +219,7 @@ async def cancel_command(client, message):
         set_user_step(user_id, None)
         if status_msg:
             await edit_message_safely(status_msg,
-                '✅ Login process cancelled. Use /login to start again.')
+                '✅ ʟᴏɢɪɴ ᴘʀᴏᴄᴇss ᴄᴀɴᴄᴇʟʟᴇᴅ. ᴜsᴇ /login ᴛᴏ sᴛᴀʀᴛ ᴀɢᴀɪɴ.')
         else:
             temp_msg = await message.reply(
                 '✅ Login process cancelled. Use /login to start again.')
@@ -232,7 +232,7 @@ async def cancel_command(client, message):
 async def logout_command(client, message):
     user_id = message.from_user.id
     await message.delete()
-    status_msg = await message.reply('🔄 Processing logout request...')
+    status_msg = await message.reply('🔄 ᴘʀᴏᴄᴇssɪɴɢ ʟᴏɢᴏᴜᴛ ʀᴇǫᴜᴇsᴛ...')
     try:
         session_data = await get_user_data(user_id)
         
@@ -260,7 +260,7 @@ Still removing from database..."""
             await temp_client.disconnect()
         await remove_user_session(user_id)
         await edit_message_safely(status_msg,
-            '✅ Logged out successfully!!')
+            '✅ ʟᴏɢɢᴇᴅ ᴏᴜᴛ sᴜᴄᴄᴇssғᴜʟʟʏ!!')
         try:
             if os.path.exists(f"{user_id}_client.session"):
                 os.remove(f"{user_id}_client.session")
@@ -277,9 +277,10 @@ Still removing from database..."""
         if UC.get(user_id, None):
             del UC[user_id]
         await edit_message_safely(status_msg,
-            f'❌ An error occurred during logout: {str(e)}')
+            f'❌ ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴅᴜʀɪɴɢ ʟᴏɢᴏᴜᴛ: {str(e)}')
         try:
             if os.path.exists(f"{user_id}_client.session"):
                 os.remove(f"{user_id}_client.session")
         except Exception:
             pass
+
