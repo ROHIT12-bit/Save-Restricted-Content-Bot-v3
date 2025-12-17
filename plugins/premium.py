@@ -1,4 +1,4 @@
-# Copyright (c) 2025 Gagan : https://github.com/devgaganin.  
+# Copyright (c) 2025 RioShin : https://github.com/Rioshin2025.  
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
 
@@ -15,14 +15,14 @@ from utils.func import a1, a2, a3, a4, a5, a7, a8, a9, a10, a11
 from plugins.start import subscribe
 
 
-@bot_client.on(events.NewMessage(pattern='/add'))
+@bot_client.on(events.NewMessage(pattern='add_premium'))
 async def add_premium_handler(event):
     if not await is_private_chat(event):
         await event.respond(
             'This command can only be used in private chats for security reasons.'
             )
         return
-    """Handle /add command to add premium users (owner only)"""
+    """Handle /add_premium command to add premium users (owner only)"""
     user_id = event.sender_id
     if user_id not in OWNER_ID:
         await event.respond('This command is restricted to the bot owner.')
@@ -31,7 +31,7 @@ async def add_premium_handler(event):
     parts = text.split(' ')
     if len(parts) != 4:
         await event.respond(
-            """Invalid format. Use: /add user_id duration_value duration_unit
+            """Invalid format. Use: /add_premium user_id duration_value duration_unit
 Example: /add 123456 1 week"""
             )
         return
@@ -102,4 +102,5 @@ async def start_handler(client, message):
         fd,
         caption=b6,
         reply_markup=kb
+
     )
