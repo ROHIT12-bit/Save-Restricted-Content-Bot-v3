@@ -1,4 +1,4 @@
-# Copyright (c) 2025 devgagan : https://github.com/devgaganin.  
+# Copyright (c) 2025 RioShin : https://github.com/Rioshin2025.  
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
 
@@ -175,4 +175,5 @@ async def remove_premium_handler(event):
     except Exception as e:
         logger.error(f'Error removing premium from {target_user_id}: {e}')
         await event.respond(f'❌ Error removing premium: {str(e)}')
+
         return
