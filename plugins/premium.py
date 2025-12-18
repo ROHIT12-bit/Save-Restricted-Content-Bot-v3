@@ -2,106 +2,160 @@
 # Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
 
-from shared_client import client as bot_client, app
+from datetime import datetime, timedelta
+from shared_client import client as bot_client
 from telethon import events
-from datetime import timedelta
+from utils.func import (
+    get_display_name,
+    is_private_chat,
+    premium_users_collection,
+    is_premium_user
+)
 from config import OWNER_ID
-from utils.func import add_premium_user, is_private_chat
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton as IK, InlineKeyboardMarkup as IKM
-from config import OWNER_ID, JOIN_LINK as JL , ADMIN_CONTACT as AC
-import base64 as spy
-from utils.func import a1, a2, a3, a4, a5, a7, a8, a9, a10, a11
-from plugins.start import subscribe
+import logging
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger('teamspy')
 
 
-@bot_client.on(events.NewMessage(pattern='add_premium'))
+# ------------------- ADD PREMIUM -------------------
+@bot_client.on(events.NewMessage(pattern=r'^/add_premium(?:\s+|$)'))
 async def add_premium_handler(event):
     if not await is_private_chat(event):
+        return
+    if event.sender_id not in OWNER_ID:
+        return
+
+    args = event.text.split()
+    if len(args) != 2:
         await event.respond(
-            '<blockquote>This command can only be used in private chats for security reasons.</blockquote>'
-            )
+            "Usage:\n/add_premium <user_id>\nExample: /add_premium 123456789"
+        )
         return
-    """<blockquote>Handle /add_premium command to add premium users (owner only)</blockquote>"""
-    user_id = event.sender_id
-    if user_id not in OWNER_ID:
-        await event.respond('This command is restricted to the bot owner.')
-        return
-    text = event.message.text.strip()
-    parts = text.split(' ')
-    if len(parts) != 4:
-        await event.respond(
-            """<blockquote>Invalid ғᴏʀᴍᴀᴛ. ᴜsᴇ: /add_premium ᴜsᴇʀ_ɪᴅ ᴅᴜʀᴀᴛɪᴏɴ_ᴠᴀʟᴜᴇ ᴅᴜʀᴀᴛɪᴏɴ_ᴜɴɪᴛ
-ᴇxᴀᴍᴘʟᴇ: /add_premium 123456 1 week</blockquote>"""
-            )
-        return
+
     try:
-        target_user_id = int(parts[1])
-        duration_value = int(parts[2])
-        duration_unit = parts[3].lower()
-        valid_units = ['min', 'hours', 'days', 'weeks', 'month', 'year',
-            'decades']
-        if duration_unit not in valid_units:
-            await event.respond(
-                f"Invalid duration unit. Choose from: {', '.join(valid_units)}"
-                )
-            return
-        success, result = await add_premium_user(target_user_id,
-            duration_value, duration_unit)
-        if success:
-            expiry_utc = result
-            expiry_ist = expiry_utc + timedelta(hours=5, minutes=30)
-            formatted_expiry = expiry_ist.strftime('%d-%b-%Y %I:%M:%S %p')
-            await event.respond(
-                f"""✅ User {target_user_id} added as premium member
-Subscription valid until: {formatted_expiry} (IST)"""
-                )
-            await bot_client.send_message(target_user_id,
-                f"""✅ Your have been added as premium member
-**Validity upto**: {formatted_expiry} (IST)"""
-                )
-        else:
-            await event.respond(f'❌ Failed to add premium user: {result}')
+        target_user_id = int(args[1])
     except ValueError:
-        await event.respond(
-            '<blockquote>Invalid user ID or duration value. Both must be integers.</blockquote>')
-    except Exception as e:
-        await event.respond(f'Error: {str(e)}')
-        
-        
-attr1 = spy.b64encode("photo".encode()).decode()
-attr2 = spy.b64encode("file_id".encode()).decode()
-
-@app.on_message(filters.command(spy.b64decode(a5.encode()).decode()))
-async def start_handler(client, message):
-    subscription_status = await subscribe(client, message)
-    if subscription_status == 1:
+        await event.respond("❌ User ID must be a number")
         return
 
-    b1 = spy.b64decode(a1).decode()
-    b2 = int(spy.b64decode(a2).decode())
-    b3 = spy.b64decode(a3).decode()
-    b4 = spy.b64decode(a4).decode()
-    b6 = spy.b64decode(a7).decode()
-    b7 = spy.b64decode(a8).decode()
-    b8 = spy.b64decode(a9).decode()
-    b9 = spy.b64decode(a10).decode()
-    b10 = spy.b64decode(a11).decode()
+    now = datetime.utcnow()
+    expiry = now + timedelta(days=365)  # default 1 year, adjust if needed
 
-    tm = await getattr(app, b3)(b1, b2)
-
-    pb = getattr(tm, spy.b64decode(attr1.encode()).decode())
-    fd = getattr(pb, spy.b64decode(attr2.encode()).decode())
-
-    kb = IKM([
-        [IK(b7, url=JL)],
-        [IK(b8, url=AC)]
-    ])
-
-    await getattr(message, b4)(
-        fd,
-        caption=b6,
-        reply_markup=kb
-
+    await premium_users_collection.update_one(
+        {"user_id": target_user_id},
+        {
+            "$set": {
+                "user_id": target_user_id,
+                "subscription_start": now,
+                "subscription_end": expiry,
+                "expireAt": expiry
+            }
+        },
+        upsert=True
     )
 
+    expiry_ist = expiry + timedelta(hours=5, minutes=30)
+    formatted_expiry = expiry_ist.strftime("%d-%b-%Y %I:%M:%S %p")
+
+    await event.respond(
+        f"✅ Premium added for `{target_user_id}`\n"
+        f"⏳ Valid till: {formatted_expiry} (IST)"
+    )
+
+    try:
+        await bot_client.send_message(
+            target_user_id,
+            f"🌟 Premium activated!\nValid till: {formatted_expiry} (IST)"
+        )
+    except Exception:
+        pass
+
+
+# ------------------- LIST PREMIUM -------------------
+@bot_client.on(events.NewMessage(pattern=r'^/premium_list$'))
+async def premium_list_handler(event):
+    if not await is_private_chat(event):
+        return
+    if event.sender_id not in OWNER_ID:
+        return
+
+    users = premium_users_collection.find()
+    text = "🌟 **Premium Users List**\n\n"
+    count = 0
+
+    async for user in users:
+        count += 1
+        uid = user["user_id"]
+        expiry = user.get("subscription_end")
+        if expiry:
+            expiry_ist = expiry + timedelta(hours=5, minutes=30)
+            expiry_str = expiry_ist.strftime("%d-%b-%Y")
+        else:
+            expiry_str = "Unknown"
+        text += f"{count}. `{uid}` — till {expiry_str}\n"
+
+    if count == 0:
+        text = "⚠️ No premium users found."
+
+    await event.respond(text)
+
+
+# ------------------- REMOVE PREMIUM -------------------
+@bot_client.on(events.NewMessage(pattern=r'^/remove_premium(?:\s+|$)'))
+async def remove_premium_handler(event):
+    if not await is_private_chat(event):
+        return
+    if event.sender_id not in OWNER_ID:
+        await event.respond("❌ Not authorized")
+        return
+
+    args = event.text.split()
+    if len(args) != 2:
+        await event.respond(
+            "Usage:\n/remove_premium <user_id>\nExample: /remove_premium 123456789"
+        )
+        return
+
+    try:
+        target_user_id = int(args[1])
+    except ValueError:
+        await event.respond("❌ Invalid user ID")
+        return
+
+    if not await is_premium_user(target_user_id):
+        await event.respond(
+            f"❌ User `{target_user_id}` does not have a premium subscription."
+        )
+        return
+
+    try:
+        result = await premium_users_collection.delete_one(
+            {"user_id": target_user_id}
+        )
+        if result.deleted_count == 0:
+            await event.respond("❌ Failed to remove premium (not found).")
+            return
+
+        target_name = "Unknown"
+        try:
+            entity = await bot_client.get_entity(target_user_id)
+            target_name = get_display_name(entity)
+        except Exception:
+            pass
+
+        await event.respond(
+            f"✅ Premium successfully removed from {target_name} (`{target_user_id}`)"
+        )
+
+        try:
+            await bot_client.send_message(
+                target_user_id,
+                "⚠️ Your premium subscription has been removed by the admin."
+            )
+        except Exception:
+            pass
+
+    except Exception as e:
+        logger.error(f"Error removing premium: {e}")
+        await event.respond("❌ Error while removing premium.")
