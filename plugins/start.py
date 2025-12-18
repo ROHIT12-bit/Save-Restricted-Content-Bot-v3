@@ -31,7 +31,7 @@ async def start(client, message):
 <blockquote>**❤️‍🔥 sᴀᴠᴇ ᴘᴏsᴛs ғʀᴏᴍ ʀᴇsᴛʀɪᴄᴛᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟs & ɢʀᴏᴜᴘs**</blockquote>
 <blockquote>**❤️‍🔥 ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ғʀᴏᴍ sᴜᴘᴘᴏʀᴛᴇᴅ ᴘʟᴀᴛғᴏʀᴍs**</blockquote>
 <blockquote>**📎 sᴇɴᴅ ᴀ ᴘᴏsᴛ ʟɪɴᴋ ᴛᴏ sᴛᴀʀᴛ**</blockquote>
-<blockquote>**⚙️ ᴜsᴇ /ᴄᴍᴅ ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs**</blockquote>
+<blockquote>**⚙️ ᴜsᴇ /cmd ᴛᴏ sᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs**</blockquote>
 <blockquote>**⚡ ᴘᴏᴡᴇʀᴇᴅ ʙʏ** <a href='https://t.me/BOTSKINGDOMS'>BotsKingdoms</a></blockquote>"""
 
     await client.send_photo(
@@ -228,6 +228,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
