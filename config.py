@@ -1,7 +1,6 @@
-# Copyright (c) 2025 devgagan : https://github.com/devgaganin.
-# Licensed under the GNU General Public License v3.0.
+# Copyright (c) 2025 RioShin : https://github.com/Rioshin2025.  
+# Licensed under the GNU General Public License v3.0.  
 # See LICENSE file in the repository root for full license text.
-
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,7 +26,7 @@ MONGO_DB     = os.getenv("MONGO_DB", "mongodb+srv://rohitreddyathuru:R6Co7MOjTYQ
 DB_NAME      = os.getenv("DB_NAME", "telegram_downloader")
 
 # ─── OWNER / CONTROL SETTINGS ───────────────────────────────────────────────────
-OWNER_ID     = list(map(int, os.getenv("OWNER_ID", "8367080346").split()))  # space-separated list
+OWNER_ID = list(map(int, os.getenv("OWNER_ID", "8367080346").split()))  # space-separated list
 STRING       = os.getenv("STRING", None)  # optional session string
 LOG_GROUP    = int(os.getenv("LOG_GROUP", "-1003350185458"))
 FORCE_SUB    = int(os.getenv("FORCE_SUB", "-1002747099183"))
@@ -76,5 +75,6 @@ P0 = {
 # ════════════════════════════════════════════════════════════════════════════════
 # ░ DEVGAGAN
 # ════════════════════════════════════════════════════════════════════════════════
+
 
 
