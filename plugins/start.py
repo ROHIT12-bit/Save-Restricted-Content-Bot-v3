@@ -64,7 +64,7 @@ Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴊᴏɪɴᴇᴅ ғᴇᴡ ᴄʜᴀɴɴᴇʟs ʏᴇᴛ.
             await message.reply_text(f"Something Went Wrong. Contact admins... with following message {ggn}")
             return 1 
 
-# ----------------- Help pages -----------------
+# ----------------- Cmd pages -----------------
 help_pages = [
     (
         """<blockquote>🤖 Bot Commands Guide — PART 1</blockquote>
@@ -84,21 +84,16 @@ help_pages = [
 <blockquote>/terms – Terms &amp; conditions</blockquote>
 <blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
 <blockquote>📥 DOWNLOAD & EXTRACTION</blockquote>
-<blockquote>/dl &lt;link&gt; – Download video (Not in v3)</blockquote>
-<blockquote>/adl &lt;link&gt; – Download audio (Not in v3)</blockquote>
+<blockquote>/dl &lt;link&gt; – Download video </blockquote>
+<blockquote>/adl &lt;link&gt; – Download audio </blockquote>
 <blockquote>/batch – Bulk post extraction (Login required)</blockquote>
 <blockquote>/cancel – Cancel ongoing process</blockquote>
 <blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
-<blockquote>⚡ by Botskingdoms</blockquote>
+<blockquote>⚡ by @Botskingdoms</blockquote>
 """
     ),
     (
         """<blockquote>🤖 Bot Commands Guide — PART 2</blockquote>
-<blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
-<blockquote>⚙️ TOOLS & INFO</blockquote>
-<blockquote>/stats – Bot statistics</blockquote>
-<blockquote>/speedtest – Server speed test (Not in v3)</blockquote>
-<blockquote>/session – Generate Pyrogram v2 session</blockquote>
 <blockquote>━━━━━━━━━━━━━━━━━━</blockquote>
 <blockquote>⚙️ SETTINGS</blockquote>
 <blockquote>SETCHATID – Upload directly to channel / group / DM (Use -100&lt;chat_id&gt;)</blockquote>
@@ -227,6 +222,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
