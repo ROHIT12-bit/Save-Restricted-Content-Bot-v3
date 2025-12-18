@@ -2,14 +2,13 @@
 # File Name: ytdl.py (pure code)
 # Description: A Pyrogram bot for downloading yt and other sites videos from Telegram channels or groups 
 #              and uploading them back to Telegram.
-# Author: Gagan
-# GitHub: https://github.com/devgaganin/
-# Telegram: https://t.me/team_spy_pro
-# YouTube: https://youtube.com/@dev_gagan
-# Created: 2025-01-11
+# Author: RioShin
+# GitHub: https://github.com/RioShin2025/
+# Telegram: https://t.me/RioShin
+# Created: 2025-13-25
 # Last Modified: 2025-01-11
-# Version: 2.0.5
-# License: MIT License
+# Version: 1.0.0
+# License: GNU License
 # ---------------------------------------------------
 
 import yt_dlp
@@ -164,7 +163,7 @@ async def process_audio(client, event, url, cookies_env_var=None):
         if temp_cookie_path and os.path.exists(temp_cookie_path):
             os.remove(temp_cookie_path)
  
-@client.on(events.NewMessage(pattern="/adl"))
+@client.on(events.NewMessage(pattern="/audio"))
 async def handler(event):
     user_id = event.sender_id
     if user_id in ongoing_downloads:
@@ -172,7 +171,7 @@ async def handler(event):
         return
  
     if len(event.message.text.split()) < 2:
-        await event.reply("**Usage:** `/adl <video-link>`\n\nPlease provide a valid video link!")
+        await event.reply("**Usage:** `/audio <video-link>`\n\nPlease provide a valid video link!")
         return    
  
     url = event.message.text.split()[1]
@@ -215,7 +214,7 @@ def download_video(url, ydl_opts):
         ydl.download([url])
  
  
-@client.on(events.NewMessage(pattern="/dl"))
+@client.on(events.NewMessage(pattern="video"))
 async def handler(event):
     user_id = event.sender_id
  
@@ -225,7 +224,7 @@ async def handler(event):
         return
  
     if len(event.message.text.split()) < 2:
-        await event.reply("**Usage:** `/dl <video-link>`\n\nPlease provide a valid video link!")
+        await event.reply("**Usage:** `/video <video-link>`\n\nPlease provide a valid video link!")
         return    
  
     url = event.message.text.split()[1]
@@ -303,7 +302,7 @@ def progress_callback(done, total, user_id):
         f"│ **__Speed:__** {speed_mbps:.2f} Mbps\n"
         f"│ **__Time Remaining:__** {remaining_time_min:.2f} min\n"
         f"╰──────────────────╯\n\n"
-        f"**__Powered by Team SPY__**"
+        f"**__Powered by Botskingdoms__**"
     )
  
      
@@ -567,3 +566,4 @@ def convert(seconds: int) -> str:
     hours, remainder = divmod(seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
     return f"{hours}:{minutes:02d}:{seconds:02d}"
+
