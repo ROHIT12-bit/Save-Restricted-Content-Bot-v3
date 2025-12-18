@@ -1,4 +1,4 @@
-# crypto_ops.py
+# encrypt.py
 from cryptography.hazmat.primitives import hashes as hsh
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC as PBK
 from cryptography.hazmat.primitives.ciphers import Cipher as Cp, algorithms as alg, modes as md
