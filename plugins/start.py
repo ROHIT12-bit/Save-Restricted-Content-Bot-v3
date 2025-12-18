@@ -138,7 +138,7 @@ async def send_or_edit_help_page(_, message, page_number):
  
     await message.reply(help_pages[page_number], reply_markup=keyboard)
  
-@app.on_message(filters.command("help"))
+@app.on_message(filters.command("cmd"))
 async def help(client, message):
     join = await subscribe(client, message)
     if join == 1:
@@ -228,6 +228,7 @@ async def see_terms(client, callback_query):
         ]
     )
     await callback_query.message.edit_text(terms_text, reply_markup=buttons)
+
 
 
 
