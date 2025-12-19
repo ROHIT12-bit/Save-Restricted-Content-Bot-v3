@@ -20,3 +20,5 @@ yt-dlp
 requests
 cryptography
 gunicorn
+pip install pyrogram tgcrypto yt-dlp aiofiles aiohttp mutagen
+
